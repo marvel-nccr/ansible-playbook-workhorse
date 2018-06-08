@@ -1,6 +1,7 @@
 # Workhorse
 
-This is an ansible playbook for installing a workhorse server on an OpenStack virtual machine.
+This is an ansible playbook for installing a workhorse server on a remote
+virtual machine (tested on OpenStack and Amazon Web Services).
 
 ### Prerequisites
 
@@ -8,16 +9,19 @@ This is an ansible playbook for installing a workhorse server on an OpenStack vi
 - passwordless ssh access to the VM via ssh key
 - [python](https://www.python.org/)
 
-### Create Virtual Machine
-
 ```
 git clone git@github.com:materialscloud-org/ansible-playbook-workhorse.git
 cd ansible-playbook-workhorse
 pip install -r requirements.txt
 ansible-galaxy install -r requirements.yml
-# todo: add path to your ssh key in ./host_vars/workhorse.yml
-ansible-playbook playbook.yml
 ```
+
+### Set up Virtual Machine
+
+
+1. select aws/os host in `./hosts` file
+1. adapt path to your ssh key in corresponding `./host_vars/*.yml` file
+1. run `ansible-playbook playbook.yml`
 
 ## Acknowledgements
 

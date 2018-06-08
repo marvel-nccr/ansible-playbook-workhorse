@@ -1,12 +1,14 @@
 ---
 - name: Install ansible prerequisites
-  hosts: workhorse
+  hosts: vms
   gather_facts: no
   roles:
     - marvel-nccr.ansible-prerequisites
 
+# Note: This play could be merged with "set up the VM" but it can make sense to
+# connect to the VM using the user created here. Leaving it separate for the moment.
 - name: Add vm user
-  hosts: workhorse
+  hosts: vms
   gather_facts: no
   pre_tasks:
     - name: import global variables
@@ -31,7 +33,7 @@
 # set correctly inside the role, but following roles will read the *default*
 # value of the variable (as defined inside the role).
 - name: set up the VM
-  hosts: workhorse
+  hosts: vms
   become: True
   become_user: "{{ vm_user }}"
   pre_tasks:
@@ -43,7 +45,6 @@
     - run_tests: False
     - clean: False
     - root_user: root
-    - cloud_platform: openstack
   roles: 
     - role: marvel-nccr.simulationbase
       tags: simulationbase

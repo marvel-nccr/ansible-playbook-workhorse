@@ -1,3 +1,3 @@
 [vms]
-workhorse-openstack ansible_host=148.187.96.77 ansible_user=ubuntu
-#workhorse-aws ansible_host=54.246.137.157 ansible_user=ubuntu
+#workhorse-openstack ansible_host=148.187.96.77 ansible_user=ubuntu
+workhorse-aws ansible_host=34.247.71.150 ansible_user=ubuntu

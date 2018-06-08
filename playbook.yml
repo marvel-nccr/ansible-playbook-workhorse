@@ -77,6 +77,9 @@
       vars:
         torque_hostname: "{{ vm_hostname }}"
         torque_cpus: "{{ vm_cpus }}"
+    - role: aws_fixes
+      tags: aws_fixes
+      when: cloud_platform == 'aws'
     - role: marvel-nccr.quantum-espresso
       tags: quantum_espresso
       vars: 

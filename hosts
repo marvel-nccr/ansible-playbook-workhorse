@@ -1,0 +1,2 @@
+[vms]
+workhorse ansible_host=148.187.96.77 ansible_user=ubuntu

@@ -1,0 +1,131 @@
+---
+- name: Install ansible prerequisites
+  hosts: workhorse
+  gather_facts: no
+  roles:
+    - marvel-nccr.ansible-prerequisites
+
+- name: Add vm user
+  hosts: workhorse
+  gather_facts: no
+  pre_tasks:
+    - name: import global variables
+      tags: always
+      include_vars:
+        file: globalconfig.yml
+    - name: test global config
+      debug:
+        msg: RUNNING PLAYBOOK FOR '{{ vm_name }}' VERSION '{{ vm_version }}'
+    - name: testing ansible environment
+      debug:
+        msg: Connecting to host '{{ inventory_hostname }}' as user '{{ ansible_user }}'
+  roles:
+    - name: add user {{ vm_user }} with key
+      role: marvel-nccr.add-user
+      vars:
+        add_user_name: "{{ vm_user }}"
+        add_user_public_key: "{{ lookup('file', './keys/workhorse.pub') }}"
+         
+# Note: it is important to pass variables to roles within a 'vars' group
+# If they are passed on the same indentation level as the role, the variable is
+# set correctly inside the role, but following roles will read the *default*
+# value of the variable (as defined inside the role).
+- name: set up the VM
+  hosts: workhorse
+  become: True
+  become_user: "{{ vm_user }}"
+  pre_tasks:
+    - name: import global variables
+      tags: always
+      include_vars:
+        file: globalconfig.yml
+  vars:
+    - run_tests: False
+    - clean: False
+    - root_user: root
+    - cloud_platform: openstack
+  roles: 
+    - role: marvel-nccr.simulationbase
+      tags: simulationbase
+      vars:
+        simulationbase_vm_user: "{{ vm_user }}"
+        simulationbase_vm_user_public_key: "{{ lookup('file', './keys/aiida_tutorial_aiidaaccount.pub') }}"
+        simulationbase_hostname: "{{ vm_hostname }}"
+        simulationbase_codes_folder: "{{ vm_codes_folder }}"
+    - role: marvel-nccr.ubuntu-desktop
+      tags: ubuntu_desktop
+      vars:
+        ubuntu_desktop_browser: "{{ vm_browser }}"
+        ubuntu_desktop_vm_user: "{{ vm_user }}"
+      when: not vm_headless
+    - role: marvel-nccr.quantum-mobile-customizations
+      tags: customizations
+      vars:
+        qm_customizations_vm_user: "{{ vm_user }}"
+        qm_customizations_vm_password: "{{ vm_password }}"
+        qm_customizations_vm_name: "{{ vm_name }}"
+        qm_customizations_vm_version: "{{ vm_version }}"
+        qm_customizations_vm_author: "{{ vm_author }}"
+        qm_customizations_headless: "{{ vm_headless }}"
+        qm_customizations_codes_folder: "{{ vm_codes_folder }}"
+        qm_customizations_examples_folder: "{{ vm_examples_folder }}"
+    - role: marvel-nccr.editors
+      tags: editors
+    - role: marvel-nccr.torque
+      tags: torque
+      vars:
+        torque_hostname: "{{ vm_hostname }}"
+        torque_cpus: "{{ vm_cpus }}"
+    - role: marvel-nccr.quantum-espresso
+      tags: quantum_espresso
+      vars: 
+        quantum_espresso_code_folder: "{{ vm_codes_folder }}"
+    - role: marvel-nccr.yambo
+      tags: yambo
+      vars: 
+        yambo_code_folder: "{{ vm_codes_folder }}"
+    - role: marvel-nccr.fleur
+      tags: fleur
+      vars: 
+        fleur_code_folder: "{{ vm_codes_folder }}"
+    - role: marvel-nccr.siesta
+      tags: siesta
+      vars: 
+        siesta_code_folder: "{{ vm_codes_folder }}"
+    - role: marvel-nccr.cp2k
+      tags: cp2k
+      vars: 
+        cp2k_code_folder: "{{ vm_codes_folder }}"
+    - role: marvel-nccr.wannier90
+      tags: wannier90
+      vars: 
+        wannier90_code_folder: "{{ vm_codes_folder }}"
+    - role: marvel-nccr.zeopp
+      tags: zeopp
+      vars:
+        zeopp_code_folder: "{{ vm_codes_folder }}"
+        zeopp_url_username: "{{ lookup('file', './keys/zeopp_user') }}"
+        zeopp_url_password: "{{ lookup('file', './keys/zeopp_pass') }}"
+    - role: marvel-nccr.raspa
+      tags: raspa
+      vars:
+        raspa_code_folder: "{{ vm_codes_folder }}"
+        raspa_key_file: "./keys/raspa-fork"
+    - role: marvel-nccr.gudhi
+      tags: gudhi
+      vars:
+        gudhi_code_folder: "{{ vm_codes_folder }}"
+    - role: marvel-nccr.phtools
+      tags: phtools
+      vars:
+        phtools_code_folder: "{{ vm_codes_folder }}"
+    - role: marvel-nccr.aiida
+      tags: aiida 
+      vars:
+        aiida_code_folder: "{{ vm_codes_folder }}"
+        aiida_localhost_cpus: "{{ vm_cpus }}"
+        aiida_examples_folder: "{{ vm_examples_folder }}"
+    - role: marvel-nccr.aiidalab
+      tags: aiidalab
+      vars:
+        aiidalab_headless: "{{ vm_headless }}"

@@ -1,7 +1,9 @@
 # Workhorse
 
-This is an ansible playbook for installing a workhorse server on a remote
-virtual machine (tested on OpenStack and Amazon Web Services).
+This is an ansible playbook for installing a 
+[Quantum Mobile](https://github.com/marvel-nccr/quantum-mobile)
+workhorse server on a remote virtual machine (tested on OpenStack and Amazon
+Web Services).
 
 ### Prerequisites
 
@@ -17,7 +19,6 @@ ansible-galaxy install -r requirements.yml
 ```
 
 ### Set up Virtual Machine
-
 
 1. select aws/os host in `./hosts` file
 1. adapt path to your ssh key in corresponding `./host_vars/*.yml` file

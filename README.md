@@ -7,7 +7,7 @@ Web Services).
 
 ### Prerequisites
 
-- A virtual machine running Ubuntu 16.04
+- A virtual machine running Ubuntu 18.04
 - passwordless ssh access to the VM via ssh key
 - [python](https://www.python.org/)
 

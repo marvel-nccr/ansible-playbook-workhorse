@@ -1,15 +1,14 @@
 ---
 - name: Install ansible prerequisites
-  hosts: vms
+  hosts: openstack
   gather_facts: no
   roles:
     - role: marvel-nccr.ansible_prerequisites
-      when: cloud_platform != 'aws'
 
 # Note: This play could be merged with "set up the VM" but it can make sense to
 # connect to the VM using the user created here. Leaving it separate for the moment.
 - name: Add vm user
-  hosts: vms
+  hosts: aws,openstack
   gather_facts: no
   tags: add_user
   pre_tasks:
@@ -35,7 +34,7 @@
         add_user_passwordless_sudo: true
          
 - name: set up the VM
-  hosts: vms
+  hosts: aws,openstack
   become: True
   become_user: "{{ vm_user }}"
   vars:
@@ -74,9 +73,6 @@
         slurm_hostname: "{{ vm_hostname }}"
         slurm_cpus: "{{ vm_cpus }}"
         slurm_memory: "{{ vm_memory }}"
-#   - role: aws_fixes
-#     tags: aws_fixes
-#     when: cloud_platform == 'aws'
     - role: marvel-nccr.quantum_espresso
       tags: quantum_espresso
       vars: 

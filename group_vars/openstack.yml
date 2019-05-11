@@ -1,2 +1,3 @@
+ansible_user: ubuntu
 ansible_ssh_common_args: -i ./keys/workhorse -o StrictHostKeyChecking=no
 cloud_platform: openstack

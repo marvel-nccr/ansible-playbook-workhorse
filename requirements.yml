@@ -34,10 +34,10 @@
 #- src: marvel-nccr.aiida
 #  version: v0.1.0
 - src: https://github.com/marvel-nccr/ansible-role-aiida.git
-  version: develop
+  version: tutorial-2019-05
   name: marvel-nccr.aiida
 #- src: marvel-nccr.aiidalab
 #  version: v0.1.0
 - src: https://github.com/marvel-nccr/ansible-role-aiidalab.git
-  version: develop
+  version: tutorial-2019-05
   name: marvel-nccr.aiidalab

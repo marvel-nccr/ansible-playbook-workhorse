@@ -1,6 +1,6 @@
-# Workhorse
+# Quantum Mobile Workhorse
 
-This is an ansible playbook for installing a 
+This ansible playbook installs a 
 [Quantum Mobile](https://github.com/marvel-nccr/quantum-mobile)
 workhorse server on a remote virtual machine (tested on OpenStack and Amazon
 Web Services).
@@ -12,7 +12,7 @@ Web Services).
 - [python](https://www.python.org/)
 
 ```
-git clone git@github.com:materialscloud-org/ansible-playbook-workhorse.git
+git clone git@github.com:marvel-nccr/ansible-playbook-workhorse.git
 cd ansible-playbook-workhorse
 pip install -r requirements.txt
 ansible-galaxy install -r requirements.yml
@@ -21,7 +21,7 @@ ansible-galaxy install -r requirements.yml
 ### Set up Virtual Machine
 
 1. select aws/os host in `./hosts` file
-1. adapt path to your ssh key in corresponding `./host_vars/*.yml` file
+1. adapt path to your ssh key in corresponding `./group_vars/*.yml` file
 1. run `ansible-playbook playbook.yml`
 
 ## Acknowledgements

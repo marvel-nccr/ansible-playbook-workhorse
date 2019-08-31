@@ -4,3 +4,5 @@
 *.retry
 *.log
 RELEASENOTES.txt
+mitogen-0.2.8.tar.gz
+mitogen-0.2.8

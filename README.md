@@ -27,6 +27,7 @@ git clone git@github.com:materialscloud-org/ansible-playbook-workhorse.git
 cd ansible-playbook-workhorse
 pip install -r requirements.txt  # installs python requirements
 ansible-galaxy install -r requirements.yml  # installs ansible roles
+wget https://networkgenomics.com/try/mitogen-0.2.8.tar.gz && tar xf mitogen-0.2.8.tar.gz
 ```
 
 ### Set up Virtual Machine

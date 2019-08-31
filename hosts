@@ -1,5 +1,9 @@
 [aws]
-aws-vm3 ansible_host=63.32.61.91
+#aws-vm1 ansible_host=18.203.221.13
+aws-vm3 ansible_host=176.34.156.97
+
+[hwcloud]
+#hw-vm2 ansible_host=139.9.197.20
 
 [openstack]
 #openstack-vm1 ansible_host=148.187.96.77

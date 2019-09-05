@@ -17,3 +17,13 @@
     src: ./keys/aiida-tutorial-compute.pem
     dest: "${HOME}/.ssh/"
     mode: 0600
+
+- name: add PyPI mirror (config directory)
+  file:
+    dest: "${HOME}/.pip"
+    state: directory
+
+- name: add PyPI mirror (config file)
+  copy:
+    src: pip.conf
+    dest: "${HOME}/.pip/pip.conf"

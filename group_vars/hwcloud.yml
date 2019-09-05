@@ -1,5 +1,5 @@
 ansible_user: root
-ansible_ssh_common_args: -i ./keys/xiamen-admin.pem -o StrictHostKeyChecking=no
+ansible_ssh_common_args: -i ./keys/aiida-tutorial-master -o StrictHostKeyChecking=no
 cloud_platform: hwcloud
 
 # modify this line to switch to pyhon2

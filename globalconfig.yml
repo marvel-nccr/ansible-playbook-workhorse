@@ -11,7 +11,7 @@ vm_author_url: "http://nccr-marvel.ch"
 vm_hostname: "workhorse"
 vm_user: "max"
 vm_memory: 32768
-vm_cpus: 2
+vm_cpus: 8
 vm_codes_folder: "${HOME}/codes"
 vm_examples_folder: "${HOME}/examples"
 vm_headless: True

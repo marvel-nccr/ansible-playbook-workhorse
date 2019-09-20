@@ -21,7 +21,12 @@ ansible-galaxy install -r requirements.yml
 ### Set up Virtual Machine
 
 1. select aws/os host in `./hosts` file
-1. adapt path to your ssh key in corresponding `./group_vars/*.yml` file
+1. adapt path to your ssh key (to connect as admin to the VM)
+   in corresponding `./group_vars/*.yml` file
+1. Tune the `globalconfig.yml` file (in particular `vm_user`, `vm_memory`, `vm_cpus`)
+1. edit the `playbook.yml` file replacing, in the role `"add user {{ vm_user }} with key" (marvel-nccr.add_user`),
+   under `add_user_public_key`, the correct path to the public key the students will have: 
+1. Tune what you want to have in the machine in the `playbook.yml` file
 1. run `ansible-playbook playbook.yml`
 
 ## Acknowledgements

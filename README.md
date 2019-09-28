@@ -2,20 +2,31 @@
 
 This ansible playbook installs a 
 [Quantum Mobile](https://github.com/marvel-nccr/quantum-mobile)
-workhorse server on a remote virtual machine (tested on OpenStack and Amazon
-Web Services).
+workhorse server on a remote virtual machine (tested on OpenStack, Amazon Web Services and Huawei Cloud).
 
 ### Prerequisites
 
-- A virtual machine running Ubuntu 18.04
-- passwordless ssh access to the VM via ssh key
-- [python](https://www.python.org/)
+#### Server
+- A server running Ubuntu 18.04 
+  Can be hardware or virtual machine (tested on OpenStack, Amazon Web Services and Huawei Cloud).
+- Access to server via SSH key
 
+Note on security rules:
+- SSH access requires port 22 to be open
+- You may want to open further port for other servers:
+  - port 8888 to connect to Jupyter Notebook Servers (AiiDA lab)
+  - port 5000 to connect to the AiiDA REST API
+
+#### Client
+- [python](https://www.python.org/)
+- [git](https://git-scm.com)
+
+To get set up, run the following on your client:
 ```
-git clone git@github.com:marvel-nccr/ansible-playbook-workhorse.git
+git clone https://github.com/marvel-nccr/ansible-playbook-workhorse.git
 cd ansible-playbook-workhorse
-pip install -r requirements.txt
-ansible-galaxy install -r requirements.yml
+pip install -r requirements.txt  # installs python requirements
+ansible-galaxy install -r requirements.yml  # installs ansible roles
 ```
 
 ### Set up Virtual Machine

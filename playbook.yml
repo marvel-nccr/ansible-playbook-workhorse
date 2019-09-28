@@ -98,5 +98,3 @@
         aiida_code_folder: "{{ vm_codes_folder }}"
         aiida_localhost_cpus: "{{ vm_cpus }}"
         aiida_examples_folder: "{{ vm_examples_folder }}"
-    - role: xiamen_tutorial2019
-      tags: xiamen

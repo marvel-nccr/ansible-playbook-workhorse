@@ -23,7 +23,7 @@ Note on security rules:
 
 To get set up, run the following on your client:
 ```
-git clone git@github.com:materialscloud-org/ansible-playbook-workhorse.git
+git clone https://github.com/marvel-nccr/ansible-playbook-workhorse.git
 cd ansible-playbook-workhorse
 pip install -r requirements.txt  # installs python requirements
 ansible-galaxy install -r requirements.yml  # installs ansible roles

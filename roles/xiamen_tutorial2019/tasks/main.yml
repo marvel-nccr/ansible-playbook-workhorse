@@ -1,0 +1,29 @@
+---
+- name: add user compute with key
+  include_role: 
+    name: marvel-nccr.add_user
+  vars:
+    add_user_name: "compute"
+    add_user_public_key: "{{ lookup('file', './keys/aiida-tutorial-compute.pub') }}"
+    add_user_groups:
+      - "compute"
+    #  - sudo
+    add_user_passwordless_sudo: false
+
+- name: copy private key for "compute" user to "{{ vm_user }}"
+  become: true
+  become_user: "{{ vm_user }}"
+  copy:
+    src: ./keys/aiida-tutorial-compute.pem
+    dest: "${HOME}/.ssh/"
+    mode: 0600
+
+- name: add PyPI mirror (config directory)
+  file:
+    dest: "${HOME}/.pip"
+    state: directory
+
+- name: add PyPI mirror (config file)
+  copy:
+    src: pip.conf
+    dest: "${HOME}/.pip/pip.conf"

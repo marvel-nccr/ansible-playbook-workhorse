@@ -33,4 +33,4 @@
 #  version: develop
 #  name: marvel-nccr.aiida
 - src: marvel-nccr.aiidalab
-  version: v0.1.0
+  version: v1.0.0

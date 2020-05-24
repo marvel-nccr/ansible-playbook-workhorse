@@ -1,6 +1,6 @@
 ansible_user: ubuntu
-ansible_ssh_common_args: -i ./keys/aiida-tutorial.pem -o StrictHostKeyChecking=no
+ansible_ssh_common_args: -i ./keys/quantum-mobile.pem -o StrictHostKeyChecking=no
 cloud_platform: aws
 
-# modify this line to switch to pyhon2
+# modify this line to switch to python2
 ansible_python_interpreter: /usr/bin/python3

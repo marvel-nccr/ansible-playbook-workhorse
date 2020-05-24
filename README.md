@@ -1,19 +1,32 @@
-# Quantum Mobile Workhorse
+# Quantum Mobile Workhorse Server
 
-This ansible playbook installs a 
-[Quantum Mobile](https://github.com/marvel-nccr/quantum-mobile)
-workhorse server on a remote virtual machine (tested on OpenStack, Amazon Web Services and Huawei Cloud).
+This repository contains instructions for deploying [Quantum Mobile](www.materialscloud.org/quantum-mobile) on a remote server (for running Quantum Mobile directly on your laptop or workstation, see [here](https://github.com/marvel-nccr/quantum-mobile) instead).
+
+Quantum Mobile has been deployed successfully on Amazon Web Services, Google Compute Cloud, Huawei Cloud, Openstack as well as on bare metal servers.
+
+## Launching a pre-built image
+
+For some platforms, we offer pre-built images on the [release page](https://github.com/marvel-nccr/ansible-playbook-workhorse/releases) that allow you to launch a new Quantum Mobile VM in a few clicks.
+
+--Video Placeholder--
+
+## Building the image yourself
+
+If your platform of choice is not listed above or if you would like to customize your deployment of Quantum Mobile, you'll need to build the image yourself.
+
+This procedure is automated entirely using the [ansible playbook](https://docs.ansible.com/ansible/latest/user_guide/playbooks.html) in this repository.
 
 ### Prerequisites
 
 #### Server
-- A server running Ubuntu 18.04 
+- A server running Ubuntu 18.04 LTS
   Can be hardware or virtual machine (tested on OpenStack, Amazon Web Services and Huawei Cloud).
-- Access to server via SSH key
+- At least 12GB disk size (including Ubuntu); better 15GB or more
+- Access to server via SSH key as user with sudo rights
 
-Note on security rules:
-- SSH access requires port 22 to be open
-- You may want to open further port for other servers:
+Security rules:
+- Port 22 open (for SSH access)
+- You may want to open further ports (optional):
   - port 8888 to connect to Jupyter Notebook Servers (AiiDA lab)
   - port 5000 to connect to the AiiDA REST API
 
@@ -21,7 +34,7 @@ Note on security rules:
 - [python](https://www.python.org/)
 - [git](https://git-scm.com)
 
-To get set up, run the following on your client:
+To get set up, run the following on your client (e.g. your laptop -- *not* on the server itself):
 ```
 git clone https://github.com/marvel-nccr/ansible-playbook-workhorse.git
 cd ansible-playbook-workhorse
@@ -29,16 +42,48 @@ pip install -r requirements.txt  # installs python requirements
 ansible-galaxy install -r requirements.yml  # installs ansible roles
 ```
 
-### Set up Virtual Machine
+### Provisioning the server
 
-1. select aws/os host in `./hosts` file
-1. adapt path to your ssh key (to connect as admin to the VM)
-   in corresponding `./group_vars/*.yml` file
-1. Tune the `globalconfig.yml` file (in particular `vm_user`, `vm_memory`, `vm_cpus`)
-1. edit the `playbook.yml` file replacing, in the role `"add user {{ vm_user }} with key" (marvel-nccr.add_user`),
-   under `add_user_public_key`, the correct path to the public key the students will have: 
-1. Tune what you want to have in the machine in the `playbook.yml` file
+1. Add your server to the [ansible inventory](https://docs.ansible.com/ansible/latest/user_guide/intro_inventory.html) in the `hosts` file, e.g.
+   ```
+   [myplatform]
+   qm ansible_host=1.1.1.1
+   ```
+1. Adapt the corresponding `./group_vars/*.yml` file (or create your own), with
+   * the path to your private SSH key for connecting to the server
+   * the user to connect as via SSH
+1. Tune the `globalconfig.yml` file, in particular:
+   * `vm_user`: the user for which to install the simulation environment (usually *not* the admin user you are connecting as)
+   * `vm_memory`, `vm_cpus`
+1. (optional) adaptation of the ansible `playbook.yml`
+   * You want to preload a SSH public key for the `vm_user`?  
+   Then uncomment the `"add user {{ vm_user }} with key"` role and adjust the path to the public key in the lookup for the `add_user_public_key` variable
+   * Add/remove further roles depending on what you want to have in the image
 1. run `ansible-playbook playbook.yml`
+
+Your server should now be fully deployed and operational.
+
+You can log in to the server as the `vm_user` via the public SSH key you provided.
+
+### Saving the image
+
+Before creating an image from the server, here are a few tricks to reduce image size:
+
+1. Remove unnecessary files:  
+   `ansible-playbook playbook.yml --extra-vars "clean=true" --tags qm_customizations,simulationbase`
+1. Follow instructions to remove SSH key for image publication  
+   AWS: `sudo shred -u /etc/ssh/*_key /etc/ssh/*_key.pub`  
+
+1. Clear bash history: `cat /dev/null > ~/.bash_history && history -c && exit`
+
+1. Shut down instance (note: this will also clear temporary data in `/tmp`)
+
+1. Create image (following instructions for your platform)
+
+1. Publish image
+   [GCP](https://cloud.google.com/compute/docs/images/managing-access-custom-images#share-images-publicly)
+   [AWS]()
+
 
 ### Tweaks
 

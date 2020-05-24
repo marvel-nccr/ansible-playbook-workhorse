@@ -1,0 +1,6 @@
+ansible_user: max
+ansible_ssh_common_args: -i ./keys/gcp-max.pem -o StrictHostKeyChecking=no
+cloud_platform: gcp
+
+# modify this line to switch to pyhon2
+ansible_python_interpreter: /usr/bin/python3

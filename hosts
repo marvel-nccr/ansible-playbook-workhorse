@@ -1,10 +1,11 @@
 [aws]
-aws-vm1 ansible_host=18.203.221.13
-#aws-vm3 ansible_host=176.34.156.97
+quantum-mobile ansible_host=34.250.68.129
 
-[hwcloud]
+#[hwcloud]
 #hw-vm2 ansible_host=114.116.226.33
 
-[openstack]
+#[openstack]
 #openstack-vm1 ansible_host=148.187.96.53
 
+#[gcp]
+#quantum-mobile ansible_host=34.65.240.28 ansible_user=leopold

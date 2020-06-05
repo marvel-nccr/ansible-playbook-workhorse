@@ -1,20 +1,44 @@
-# Quantum Mobile Workhorse Server
+# Quantum Mobile Cloud Edition
 
-This repository contains instructions for deploying [Quantum Mobile](www.materialscloud.org/quantum-mobile) on a remote server (for running Quantum Mobile directly on your laptop or workstation, see [here](https://github.com/marvel-nccr/quantum-mobile) instead).
 
-Quantum Mobile has been deployed successfully on Amazon Web Services, Google Compute Cloud, Huawei Cloud, Openstack as well as on bare metal servers.
+## What is Quantum Mobile
+
+*Quantum Mobile* is a Virtual Machine for computational materials science.
+
+It comes with a collection of software packages for quantum
+mechanical calculations, including
+
+ * [Quantum ESPRESSO](http://www.quantum-espresso.org/)
+ * [Yambo](http://www.yambo-code.org/)
+ * [fleur](http://www.flapw.de/)
+ * [Siesta](https://gitlab.com/siesta-project/siesta)
+ * [CP2K](https://www.cp2k.org)
+ * [Wannier90](http://www.wannier.org)
+ * [BigDFT](http://www.bigdft.org)
+
+all of which are set up and ready to be used through on their own or through the
+[AiiDA](http://www.aiida.net) python framework for automated workflows and
+provenance tracking.
+
+Quantum Mobile is available in two editions:
+
+  * *Quantum Mobile Desktop Edition* [**(download)**](https://github.com/marvel-nccr/quantum-mobile/releases) comes with the familiar Ubuntu Desktop and runs on your Windows, MacOS or Linux computer using the [VirtualBox](http://virtualbox.org/) software.
+    The Desktop Edition is tailored to provide students with a familiar working environment.
+
+  * *Quantum Mobile Cloud Edition* [**(download)**](https://github.com/marvel-nccr/quantum-mobile-cloud-edition/releases) is intended for use on servers using cloud services like Amazon Web Services. Google Cloud, or OpenStack.
+    The Cloud Edition targets advanced users who are familiar with the command line & SSH and prefer to run calculations on a remote server.
 
 ## Launching a pre-built image
 
-For some platforms, we offer pre-built images on the [release page](https://github.com/marvel-nccr/ansible-playbook-workhorse/releases) that allow you to launch a new Quantum Mobile VM in a few clicks.
+We offer pre-built images on the [release page](https://github.com/marvel-nccr/quantum-mobile-cloud-edition/releases) that allow you to launch a new Quantum Mobile VM with a few clicks on some platforms.
 
 --Video Placeholder--
 
 ## Building the image yourself
 
-If your platform of choice is not listed above or if you would like to customize your deployment of Quantum Mobile, you'll need to build the image yourself.
+If your platform of choice is not listed above or if you would like to customize Quantum Mobile, you will need to build the image yourself.
 
-This procedure is automated entirely using the [ansible playbook](https://docs.ansible.com/ansible/latest/user_guide/playbooks.html) in this repository.
+This procedure is automated entirely using the [ansible playbook](https://docs.ansible.com/ansible/latest/user_guide/playbooks.html) in this repository, which has been used successfully to deploy Quantum Mobile on Amazon Web Services, Google Compute Cloud, Huawei Cloud, Openstack as well as on bare metal servers.
 
 ### Prerequisites
 
@@ -36,8 +60,8 @@ Security rules:
 
 To get set up, run the following on your client (e.g. your laptop -- *not* on the server itself):
 ```
-git clone https://github.com/marvel-nccr/ansible-playbook-workhorse.git
-cd ansible-playbook-workhorse
+git clone https://github.com/marvel-nccr/quantum-mobile-cloud-edition.git
+cd quantum-mobile-cloud-edition
 pip install -r requirements.txt  # installs python requirements
 ansible-galaxy install -r requirements.yml  # installs ansible roles
 ```

@@ -45,8 +45,11 @@ This procedure is automated entirely using the [ansible playbook](https://docs.a
 #### Server
 - A server running Ubuntu 18.04 LTS
   Can be hardware or virtual machine (tested on OpenStack, Amazon Web Services and Huawei Cloud).
-- At least 12GB disk size (including Ubuntu); better 15GB or more
+- At least 12GB disk size (including Ubuntu); better 15GB or more.  
+  Note: After cleaning temporary files, QM 20.3.1 occupied 6.1GB of disk space.
 - Access to server via SSH key as user with sudo rights
+
+For peculiarities of different platforms, see [the wiki](https://github.com/marvel-nccr/quantum-mobile-cloud-edition/wiki/Preparing-a-cloud-image).
 
 Security rules:
 - Port 22 open (for SSH access)
@@ -54,7 +57,7 @@ Security rules:
   - port 8888 to connect to Jupyter Notebook Servers (AiiDA lab)
   - port 5000 to connect to the AiiDA REST API
 
-#### Client
+#### Client (your computer)
 - [python](https://www.python.org/)
 - [git](https://git-scm.com)
 
@@ -80,6 +83,7 @@ ansible-galaxy install -r requirements.yml  # installs ansible roles
    * `vm_user`: the user for which to install the simulation environment (usually *not* the admin user you are connecting as)
    * `vm_memory`, `vm_cpus`
 1. (optional) adaptation of the ansible `playbook.yml`
+   * 
    * You want to preload a SSH public key for the `vm_user`?  
    Then uncomment the `"add user {{ vm_user }} with key"` role and adjust the path to the public key in the lookup for the `add_user_public_key` variable
    * Add/remove further roles depending on what you want to have in the image
@@ -91,23 +95,18 @@ You can log in to the server as the `vm_user` via the public SSH key you provide
 
 ### Saving the image
 
-Before creating an image from the server, here are a few tricks to reduce image size:
+Before creating an image from the disk volume of the server you provisioned:
 
-1. Remove unnecessary files:  
+1. Remove unnecessary temporary files:  
    `ansible-playbook playbook.yml --extra-vars "clean=true" --tags qm_customizations,simulationbase`
-1. Follow instructions to remove SSH key for image publication  
-   AWS: `sudo shred -u /etc/ssh/*_key /etc/ssh/*_key.pub`  
 
 1. Clear bash history: `cat /dev/null > ~/.bash_history && history -c && exit`
 
-1. Shut down instance (note: this will also clear temporary data in `/tmp`)
+1. Shut down instance (this will clear temporary data in `/tmp`)
 
-1. Create image (following instructions for your platform)
+Now follow the instructions of your platform for creating an image from your server.
 
-1. Publish image
-   [GCP](https://cloud.google.com/compute/docs/images/managing-access-custom-images#share-images-publicly)
-   [AWS]()
-
+Note: If you plan to *publish* the image, see [the wiki](https://github.com/marvel-nccr/quantum-mobile-cloud-edition/wiki/Preparing-a-cloud-image) for further tips.
 
 ### Tweaks
 

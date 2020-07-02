@@ -13,7 +13,6 @@ vm_readme_file: "${HOME}/Desktop/README.md"
 vm_hostname: "quantum-mobile"
 vm_user: "max"
 vm_memory: 4000
-vm_cpus: 2
 vm_codes_folder: "${HOME}/codes"
 vm_data_folder: "/usr/local/share"
 vm_examples_folder: "${HOME}/examples"

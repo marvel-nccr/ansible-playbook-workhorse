@@ -14,7 +14,7 @@
 - src: marvel-nccr.editors
   version: v1.0.2
 - src: marvel-nccr.slurm
-  version: v1.1.0
+  version: v1.2.0
 - src: marvel-nccr.quantum_espresso
   version: v1.1.4
 - src: marvel-nccr.yambo

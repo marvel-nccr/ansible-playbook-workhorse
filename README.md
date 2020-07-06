@@ -45,7 +45,7 @@ This procedure is automated entirely using the [ansible playbook](https://docs.a
 #### Server
 - A server running Ubuntu 18.04 LTS
   Can be hardware or virtual machine (tested on OpenStack, Amazon Web Services and Huawei Cloud).
-- At least 12GB disk size (including Ubuntu); better 15GB or more.  
+- At least 12GB disk size (including Ubuntu); better 15GB or more.
   Note: After cleaning temporary files, QM 20.3.1 occupied 6.1GB of disk space.
 - Access to server via SSH key as user with sudo rights
 
@@ -83,8 +83,8 @@ ansible-galaxy install -r requirements.yml  # installs ansible roles
    * `vm_user`: the user for which to install the simulation environment (usually *not* the admin user you are connecting as)
    * `vm_memory`, `vm_cpus`
 1. (optional) adaptation of the ansible `playbook.yml`
-   * 
-   * You want to preload a SSH public key for the `vm_user`?  
+   *
+   * You want to preload a SSH public key for the `vm_user`?
    Then uncomment the `"add user {{ vm_user }} with key"` role and adjust the path to the public key in the lookup for the `add_user_public_key` variable
    * Add/remove further roles depending on what you want to have in the image
 1. run `ansible-playbook playbook.yml`
@@ -97,7 +97,7 @@ You can log in to the server as the `vm_user` via the public SSH key you provide
 
 Before creating an image from the disk volume of the server you provisioned:
 
-1. Remove unnecessary temporary files:  
+1. Remove unnecessary temporary files:
    `ansible-playbook playbook.yml --extra-vars "clean=true" --tags qm_customizations,simulationbase`
 
 1. Clear bash history: `cat /dev/null > ~/.bash_history && history -c && exit`

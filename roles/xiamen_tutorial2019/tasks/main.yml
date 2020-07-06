@@ -1,6 +1,6 @@
 ---
 - name: add user compute with key
-  include_role: 
+  include_role:
     name: marvel-nccr.add_user
   vars:
     add_user_name: "compute"

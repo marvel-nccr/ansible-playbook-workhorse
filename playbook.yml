@@ -65,7 +65,6 @@
       tags: slurm
       vars:
         slurm_hostname: "{{ vm_hostname }}"
-        slurm_cpus: "{{ vm_cpus }}"
         slurm_memory: "{{ vm_memory }}"
         slurm_hostname_service: true
     - role: marvel-nccr.quantum_espresso
@@ -112,3 +111,8 @@
           - plugins
           - pseudopotentials
           - examples
+
+  post_tasks:
+    - name: run pip check (to detect version clashes)
+      command: "/home/max/.virtualenvs/aiida/bin/pip check --no-color"
+      changed_when: False

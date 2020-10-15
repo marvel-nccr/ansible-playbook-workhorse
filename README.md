@@ -1,3 +1,5 @@
+**WARNING**: This repository is now deprecated. Its content has been consolidated into https://github.com/marvel-nccr/quantum-mobile
+
 # Quantum Mobile Cloud Edition
 
 
